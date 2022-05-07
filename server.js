@@ -33,7 +33,7 @@ const logger = log({ console: true, file: false, label: config.name });
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(ExpressAPILogMiddleware(logger, { request: true }));
+app.use(ExpressAPILogMiddleware(logger, { request: false }));
 
 app.post('/checkPermissions', async (req, res) => {
   try {
@@ -89,7 +89,10 @@ app.post('/generateCFrag', async (req, res) => {
     if (cfragDB[req.body.receiver] === undefined) {
       cfragDB[req.body.receiver] = {};
     }
-    cfragDB[req.body.receiver][req.body.dataId] = (
+    if (cfragDB[req.body.receiver][req.body.sender] === undefined) {
+      cfragDB[req.body.receiver][req.body.sender] = {};
+    }
+    cfragDB[req.body.receiver][req.body.sender][req.body.dataId] = (
       await axios.post(AUTH_HOST + ':' + AUTH_PORT + '/stateless/reencrypt', {
         sender: req.body.sender,
         signer: req.body.signer,
@@ -101,7 +104,7 @@ app.post('/generateCFrag', async (req, res) => {
 
     res.status(200).send({
       success: true,
-      result: cfragDB[req.body.receiver][req.body.dataId],
+      result: true,
     });
   } catch (error) {
     res.status(500).send({ success: false, result: error });
@@ -143,14 +146,15 @@ app.post('/getCfrag', async (req, res) => {
 
     if (
       cfragDB[req.body.receiver] === undefined ||
-      cfragDB[req.body.receiver][req.body.dataId] === undefined
+      cfragDB[req.body.receiver][req.body.sender] === undefined ||
+      cfragDB[req.body.receiver][req.body.sender][req.body.dataId] === undefined
     ) {
       throw new Error('No cfrag for this receiver');
     }
 
     res.status(200).send({
       success: true,
-      result: cfragDB[req.body.receiver][req.body.dataId],
+      result: cfragDB[req.body.receiver][req.body.sender][req.body.dataId],
     });
   } catch (error) {
     res.status(500).send({ success: false, result: error });
