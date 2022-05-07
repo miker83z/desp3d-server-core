@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  simple_broker_1:
+    image: simple-broker
+    network_mode: 'host'
+    build: .
+    environment:
+      - NODE_PORT=3161
+      - AUTH_PORT=8021
+      - RPCNODE_PORT=8545
+
+  simple_broker_2:
+    image: simple-broker
+    network_mode: 'host'
+    build: .
+    environment:
+      - NODE_PORT=3162
+      - AUTH_PORT=8022
+      - RPCNODE_PORT=8545
+
+  simple_broker_3:
+    image: simple-broker
+    network_mode: 'host'
+    build: .
+    environment:
+      - NODE_PORT=3163
+      - AUTH_PORT=8023
+      - RPCNODE_PORT=8545
+
+  simple_broker_4:
+    image: simple-broker
+    network_mode: 'host'
+    build: .
+    environment:
+      - NODE_PORT=3164
+      - AUTH_PORT=8024
+      - RPCNODE_PORT=8545
