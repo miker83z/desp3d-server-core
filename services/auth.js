@@ -1,14 +1,30 @@
 const axios = require('axios').default;
 const Web3 = require('web3');
 const { publicKeyConvert } = require('secp256k1');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+require('dotenv').config();
 
 const AUTH_PORT = process.env.AUTH_PORT;
-const AUTH_HOST = 'http://127.0.0.1';
+const AUTH_HOST = 'http://localhost';
 const RPCNODE_PORT = process.env.RPCNODE_PORT;
-const RPCNODE_HOST = 'http://127.0.0.1';
+const RPCNODE_HOST = 'http://localhost';
 
 const DataOwnerContractArt = require('./DataOwnerContract.json');
-const provider = RPCNODE_HOST + ':' + RPCNODE_PORT;
+
+let provider = RPCNODE_HOST + ':' + RPCNODE_PORT;
+
+const phrase = process.env.IOTA_WASP_MNEMONIC;
+const url = process.env.IOTA_WASP_URL;
+const chain = process.env.IOTA_WASP_CHAIN;
+const providerOrUrl = `${url}/wasp/api/v1/chains/${chain}/evm`;
+
+provider = new HDWalletProvider({
+  mnemonic: {
+    phrase,
+  },
+  providerOrUrl,
+});
+
 const web3 = new Web3(provider);
 const contract = new web3.eth.Contract(DataOwnerContractArt.abi);
 const dataToSign = 'sign this pls';

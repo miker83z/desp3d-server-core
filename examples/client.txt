@@ -1,5 +1,5 @@
-curl -X POST localhost:3161/checkPermissions -H "Content-Type: application/json" -d @checkPermissions.example.json
-curl -X POST localhost:3161/storeCapsule -H "Content-Type: application/json" -d @1.storeCapsule.example.json
-curl -X POST localhost:3161/storeKFrag -H "Content-Type: application/json" -d @2.storeKFrag.example.json
-curl -X POST localhost:3161/generateCFrag -H "Content-Type: application/json" -d @3.generateCFrag.example.json
-curl -X POST localhost:3161/getCFrag -H "Content-Type: application/json" -d @4.getCFrag.example.json
+curl -X POST localhost:3161/auth/checkPermissions -H "Content-Type: application/json" -d @checkPermissions.example.json
+curl -X POST localhost:3161/auth/storeCapsule -H "Content-Type: application/json" -d @1.storeCapsule.example.json
+curl -X POST localhost:3161/auth/storeKFrag -H "Content-Type: application/json" -d @2.storeKFrag.example.json
+curl -X POST localhost:3161/auth/generateCFrag -H "Content-Type: application/json" -d @3.generateCFrag.example.json
+curl -X POST localhost:3161/auth/getCFrag -H "Content-Type: application/json" -d @4.getCFrag.example.json

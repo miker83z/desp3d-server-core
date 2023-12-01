@@ -1,9 +1,34 @@
 version: '3.9'
 services:
+  auth_1:
+    image: miker83z/umbral-rs-web-service:latest
+    network_mode: 'host'
+    environment:
+      - AUTH_API_PORT=8021
+
+  auth_2:
+    image: miker83z/umbral-rs-web-service:latest
+    network_mode: 'host'
+    environment:
+      - AUTH_API_PORT=8022
+
+  auth_3:
+    image: miker83z/umbral-rs-web-service:latest
+    network_mode: 'host'
+    environment:
+      - AUTH_API_PORT=8023
+
+  auth_4:
+    image: miker83z/umbral-rs-web-service:latest
+    network_mode: 'host'
+    environment:
+      - AUTH_API_PORT=8024
+
   simple_broker_1:
     image: simple-broker
     network_mode: 'host'
-    build: .
+    depends_on:
+      - auth_1
     environment:
       - NODE_PORT=3161
       - AUTH_PORT=8021
@@ -12,7 +37,8 @@ services:
   simple_broker_2:
     image: simple-broker
     network_mode: 'host'
-    build: .
+    depends_on:
+      - auth_2
     environment:
       - NODE_PORT=3162
       - AUTH_PORT=8022
@@ -21,7 +47,8 @@ services:
   simple_broker_3:
     image: simple-broker
     network_mode: 'host'
-    build: .
+    depends_on:
+      - auth_3
     environment:
       - NODE_PORT=3163
       - AUTH_PORT=8023
@@ -30,7 +57,8 @@ services:
   simple_broker_4:
     image: simple-broker
     network_mode: 'host'
-    build: .
+    depends_on:
+      - auth_4
     environment:
       - NODE_PORT=3164
       - AUTH_PORT=8024

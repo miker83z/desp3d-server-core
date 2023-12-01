@@ -19,7 +19,7 @@ router.post('/checkPermissions', async (req, res, next) => {
       ),
     });
   } catch (error) {
-    console.error(`Error while checking permissions`, err.message);
+    console.error(`Error while checking permissions`, error.message);
     next(error);
     //res.status(500).send({ success: false, result: error });
   }
@@ -30,7 +30,7 @@ router.post('/storeCapsule', async (req, res, next) => {
     storeCapsule(req.body.sender, req.body.capsule, req.body.dataId);
     res.status(200).send({ success: true, result: true });
   } catch (error) {
-    console.error(`Error while storing capsules `, err.message);
+    console.error(`Error while storing capsules `, error.message);
     next(error);
     //res.status(500).send({ success: false, result: error });
   }
@@ -41,7 +41,7 @@ router.post('/storeKFrag', async (req, res, next) => {
     storeKFrag(req.body.sender, req.body.receiver, req.body.kfrag);
     res.status(200).send({ success: true, result: true });
   } catch (error) {
-    console.error(`Error while storing kfrags `, err.message);
+    console.error(`Error while storing kfrags `, error.message);
     next(error);
     //res.status(500).send({ success: false, result: error });
   }
@@ -60,7 +60,7 @@ router.post('/generateCFrag', async (req, res, next) => {
       result: true,
     });
   } catch (error) {
-    console.error(`Error while generating cfrags `, err.message);
+    console.error(`Error while generating cfrags `, error.message);
     next(error);
     //res.status(500).send({ success: false, result: error });
   }
@@ -80,7 +80,7 @@ router.post('/getCfrag', async (req, res, next) => {
       ),
     });
   } catch (error) {
-    console.error(`Error while getting cfrags `, err.message);
+    console.error(`Error while getting cfrags `, error.message);
     next(error);
     //res.status(500).send({ success: false, result: error });
   }
